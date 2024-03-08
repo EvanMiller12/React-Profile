@@ -36,9 +36,10 @@ export function SessionTimeoutAlert() {
   useEffect(() => {
     if (remainingTime === 0 && showModal) {
       // alert("Time out!");
-      handleLogOut();
+      setShowModal(false);
+      fetcher.load("/session-timeout");
     }
-  }, [remainingTime, showModal]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
+  }, [remainingTime, showModal, fetcher]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
 
   const handleLogOut = () => {
     setShowModal(false);
