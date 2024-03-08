@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Form, useActionData, useRouteLoaderData } from "react-router-dom";
+import {
+  Link,
+  Form,
+  useActionData,
+  useRouteLoaderData
+} from "react-router-dom";
 
 import Select from "react-select";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
@@ -9,6 +14,8 @@ import { currentUser } from "../../auth";
 import { colorOptions } from "../../data";
 
 function findSelectOption(options, value) {
+  // could use this to set state of colorVar
+  // through use state hook if wanted.
   return options.filter(option => {
     return option.value === value;
   });
@@ -96,8 +103,10 @@ export function ProfileCreateEditPage() {
             <button type="submit" className="btn btn-primary mr-12">
               Save
             </button>
-            {/* navigates back to profile */}
-            <button className="btn btn-secondary">Cancel</button>
+            {/* cancel submission and redirect to profile page */}
+            <Link to="/profile" className="btn btn-secondary">
+              Cancel
+            </Link>
           </div>
         </div>
         {actionData && actionData.error ? (
