@@ -17,10 +17,10 @@ export function ProfileCreateEditPage() {
   const [phone, setPhone] = useState(currentUser?.phone);
   const [favColor, setFavColor] = useState(currentUser?.favColor);
 
-  function findSelectedOption(options) {
+  function findSelectedOption(options, val) {
     // find obj from select options to set default option selected
     return options.filter(option => {
-      return option.value === favColor;
+      return option.value === val;
     });
   }
 
@@ -84,7 +84,7 @@ export function ProfileCreateEditPage() {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={findSelectedOption(colorOptions)}
+              defaultValue={findSelectedOption(colorOptions, favColor)}
               onChange={e => setFavColor(e.value)}
               isSearchable={true}
               name="favColor"
