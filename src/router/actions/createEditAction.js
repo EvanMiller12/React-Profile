@@ -65,8 +65,6 @@ async function createEditAction({ request }) {
   // Sign in and redirect to the proper destination if successful.
   try {
     await currentUser.update(email, password, phone, fullName, favColor);
-    const user = JSON.stringify(currentUser);
-    localStorage.setItem(currentUser.email, user);
   } catch (error) {
     // handle invalid email/password combinations
     return {
