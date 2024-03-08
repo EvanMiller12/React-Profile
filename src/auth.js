@@ -16,9 +16,13 @@ export const currentUser = {
     currentUser.isAuthenticated = true;
     currentUser.email = email;
     currentUser.password = password;
+    const user = currentUser.get(email);
 
-    const user = JSON.stringify(currentUser);
-    localStorage.setItem(email, user);
+    if (user) {
+      currentUser.fullName = user.fullName;
+      currentUser.phone = user.phone || "";
+      currentUser.favColor = user.favColor;
+    }
     sessionStorage.setItem("isLoggedIn", true);
   },
   async signout() {

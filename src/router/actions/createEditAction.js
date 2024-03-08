@@ -12,14 +12,11 @@ import { toE164Int } from "../../utilities/formatters";
 import { currentUser } from "../../auth";
 
 async function createEditAction({ request }) {
-  const userEmail = currentUser?.email;
-  const user = currentUser.get(userEmail);
-
   const formData = await request.formData();
-  const email = formData.get("email") || user?.email || null;
-  const password = formData.get("password") || user?.password || null;
-  const fullName = formData.get("fullName") || user?.fullName || null;
-  const favColor = formData.get("favColor") || user?.favColor || null;
+  const email = formData.get("email") || currentUser?.email || null;
+  const password = formData.get("password") || currentUser?.password || null;
+  const fullName = formData.get("fullName") || currentUser?.fullName || null;
+  const favColor = formData.get("favColor") || currentUser?.favColor || null;
 
   if (!email || !password || !fullName || !favColor) {
     return {
@@ -52,7 +49,7 @@ async function createEditAction({ request }) {
     };
   }
 
-  let phone = formData.get("phone") || user?.phone || null;
+  let phone = formData.get("phone") || currentUser?.phone || null;
   // check if phone input value due to being optional
   if (phone) {
     const phoneIsValid = isPhoneValid(phone);
@@ -70,7 +67,6 @@ async function createEditAction({ request }) {
     await currentUser.update(email, password, phone, fullName, favColor);
     const user = JSON.stringify(currentUser);
     localStorage.setItem(currentUser.email, user);
-    // console.log(currentUser, "here");
   } catch (error) {
     // handle invalid email/password combinations
     return {

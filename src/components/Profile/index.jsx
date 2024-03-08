@@ -1,14 +1,11 @@
 import { useState } from "react";
-import { Link, useRouteLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { ConfirmAlert } from "../ConfirmAlert";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
 
 import { currentUser } from "../../auth";
 
 export function ProfilePage() {
-  const userEmail = useRouteLoaderData("root")?.user;
-  const user = currentUser.get(userEmail);
-
   const [showAlert, setShowAlert] = useState(false);
 
   function handleToggleAlert() {
@@ -20,22 +17,24 @@ export function ProfilePage() {
 
   return (
     <div>
-      <h1 style={{ color: user?.favColor }}>{user?.fullName}'s Profile</h1>
+      <h1 style={{ color: currentUser?.favColor }}>
+        {currentUser?.fullName}'s Profile
+      </h1>
       <div>
         <div>
-          <span>Full Name: {user?.fullName}</span>
+          <span>Full Name: {currentUser?.fullName}</span>
         </div>
         <div>
-          <span>Email: {user?.email}</span>
+          <span>Email: {currentUser?.email}</span>
         </div>
         <div>
-          <span>Password: {user?.password}</span>
+          <span>Password: {currentUser?.password}</span>
         </div>
         <div>
-          <span>Phone: {user?.phone}</span>
+          <span>Phone: {currentUser?.phone}</span>
         </div>
         <div>
-          <span>Favorite Color: {user?.favColor}</span>
+          <span>Favorite Color: {currentUser?.favColor}</span>
         </div>
         <div className="form-actions">
           <Link to="/create-edit-profile" className="btn btn-primary mr-12">

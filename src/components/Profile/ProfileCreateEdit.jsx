@@ -1,10 +1,5 @@
 import { useState } from "react";
-import {
-  Link,
-  Form,
-  useActionData,
-  useRouteLoaderData
-} from "react-router-dom";
+import { Link, Form, useActionData } from "react-router-dom";
 
 import Select from "react-select";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
@@ -24,19 +19,16 @@ function findSelectOption(options, value) {
 export function ProfileCreateEditPage() {
   const actionData = useActionData();
 
-  const userEmail = useRouteLoaderData("root")?.user;
-  const user = currentUser.get(userEmail);
-
-  const [fullName, setFullName] = useState(user?.fullName || "");
-  const [email, setEmail] = useState(user?.email || "");
-  const [password, setPassword] = useState(user?.password || "");
-  const [phone, setPhone] = useState(user?.phone || "");
+  const [fullName, setFullName] = useState(currentUser?.fullName);
+  const [email, setEmail] = useState(currentUser?.email);
+  const [password, setPassword] = useState(currentUser?.password);
+  const [phone, setPhone] = useState(currentUser?.phone);
 
   return (
     <div>
       {/* check if new user by fullName val presence */}
       {fullName && (
-        <h1 style={{ color: user?.favColor }} className="text-center">
+        <h1 style={{ color: currentUser?.favColor }} className="text-center">
           Edit {fullName}'s Profile
         </h1>
       )}
@@ -93,7 +85,10 @@ export function ProfileCreateEditPage() {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={findSelectOption(colorOptions, user?.favColor)}
+              defaultValue={findSelectOption(
+                colorOptions,
+                currentUser?.favColor
+              )}
               isSearchable={true}
               name="favColor"
               options={colorOptions}
@@ -114,7 +109,7 @@ export function ProfileCreateEditPage() {
         ) : null}
       </Form>
 
-      {user?.fullName && <SessionTimeoutAlert />}
+      {fullName && <SessionTimeoutAlert />}
     </div>
   );
 }
