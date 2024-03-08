@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Link, useFetcher, useRouteLoaderData } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 import { ConfirmAlert } from "../ConfirmAlert";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
 
 export function ProfilePage() {
-  const fetcher = useFetcher();
   const userEmail = useRouteLoaderData("root")?.user;
   const preParsed = localStorage.getItem(userEmail);
   const user = JSON.parse(preParsed);
