@@ -33,7 +33,7 @@ async function loginAction({ request }) {
   }
 
   // check for user in local storage
-  const preParsed = localStorage.getItem(currentUser.email);
+  const preParsed = localStorage.getItem(email);
   if (preParsed) {
     const user = JSON.parse(preParsed);
     const userEmail = user.email;
@@ -47,7 +47,7 @@ async function loginAction({ request }) {
     }
   }
 
-  // Sign in and redirect to the proper destination if successful.
+  // Signin/signup and redirect to the proper destination if successful.
   try {
     await currentUser.signin(email, password);
   } catch (error) {
