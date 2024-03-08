@@ -13,7 +13,7 @@ export function SessionTimeoutAlert() {
   };
 
   // set idle time to 60s
-  const { isIdle } = useIdle({ onIdle: handleIdle, idleTime: 0.6 });
+  const { isIdle } = useIdle({ onIdle: handleIdle, idleTime: 1 });
   // console.log("is user idle?", isIdle);
 
   useEffect(() => {
