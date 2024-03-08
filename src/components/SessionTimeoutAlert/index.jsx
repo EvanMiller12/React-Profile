@@ -20,6 +20,7 @@ export function SessionTimeoutAlert() {
     let interval;
 
     if (isIdle && showModal) {
+      // set countdown for modal
       interval = setInterval(() => {
         setRemainingTime(
           prevRemainingTime =>
@@ -27,20 +28,22 @@ export function SessionTimeoutAlert() {
         );
       }, 1000);
     }
-
+    // remove countdown
     return () => {
       clearInterval(interval);
     };
   }, [isIdle, showModal]);
 
+  // log user out after timer is down to zero and they have not clicked anything
   useEffect(() => {
     if (remainingTime === 0 && showModal) {
       // alert("Time out!");
       setShowModal(false);
       fetcher.load("/session-timeout");
     }
-  }, [remainingTime, showModal, fetcher]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
+  }, [remainingTime, showModal, fetcher]);
 
+  // handles close of the countdown modal and logout
   const handleLogOut = () => {
     setShowModal(false);
     fetcher.load("/session-timeout");
@@ -50,6 +53,8 @@ export function SessionTimeoutAlert() {
     setShowModal(false);
   };
 
+  // convert millis to minutes and seconds
+  // for remaining time display in countdown modal
   function millisToMinutesAndSeconds(millis) {
     var minutes = Math.floor(millis / 60000);
     var seconds = ((millis % 60000) / 1000).toFixed(0);
