@@ -8,14 +8,6 @@ import { currentUser } from "../../auth";
 
 import { colorOptions } from "../../data";
 
-function findSelectOption(options, value) {
-  // could use this to set state of colorVar
-  // through use state hook if wanted.
-  return options.filter(option => {
-    return option.value === value;
-  });
-}
-
 export function ProfileCreateEditPage() {
   const actionData = useActionData();
 
@@ -23,17 +15,24 @@ export function ProfileCreateEditPage() {
   const [email, setEmail] = useState(currentUser?.email);
   const [password, setPassword] = useState(currentUser?.password);
   const [phone, setPhone] = useState(currentUser?.phone);
+  const [favColor, setFavColor] = useState(currentUser?.favColor);
+
+  function findSelectedOption(options) {
+    // find obj from select options to set default option selected
+    return options.filter(option => {
+      return option.value === favColor;
+    });
+  }
 
   return (
     <div>
       {/* check if new user by fullName val presence */}
       {fullName && (
-        <h1 style={{ color: currentUser?.favColor }} className="text-center">
+        <h1 style={{ color: favColor }} className="text-center">
           Edit {fullName}'s Profile
         </h1>
       )}
       <Form method="post" className="form">
-        {/* <input type="hidden" name="redirectTo" value={from} /> */}
         <div className="form-content">
           <label htmlFor="fullName">
             *Full Name:
@@ -85,10 +84,8 @@ export function ProfileCreateEditPage() {
             <Select
               className="basic-single"
               classNamePrefix="select"
-              defaultValue={findSelectOption(
-                colorOptions,
-                currentUser?.favColor
-              )}
+              defaultValue={findSelectedOption(colorOptions)}
+              onChange={e => setFavColor(e.value)}
               isSearchable={true}
               name="favColor"
               options={colorOptions}
