@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useFetcher } from "react-router-dom";
+import { useFetcher } from "react-router-dom";
 import useIdle from "../../hooks/useIdleTimer.js";
-import { currentUser } from "../../auth";
 
 export function SessionTimeoutAlert() {
   const fetcher = useFetcher();
-  const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [remainingTime, setRemainingTime] = useState(0);
 
@@ -40,7 +38,7 @@ export function SessionTimeoutAlert() {
       // alert("Time out!");
       handleLogOut();
     }
-  }, [remainingTime, showModal, navigate]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
+  }, [remainingTime, showModal]); // this is responsoble for logging user out after timer is down to zero and they have not clicked anything
 
   const handleLogOut = () => {
     setShowModal(false);
