@@ -6,6 +6,11 @@ export const currentUser = {
   fullName: null,
   phone: null,
   favColor: null,
+  get(email) {
+    const userJsonString = localStorage.getItem(email);
+    const user = JSON.parse(userJsonString);
+    return user;
+  },
   async signin(email, password) {
     await new Promise(r => setTimeout(r, 500)); // fake delay
     currentUser.isAuthenticated = true;
