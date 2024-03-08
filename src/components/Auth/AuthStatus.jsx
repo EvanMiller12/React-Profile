@@ -1,4 +1,5 @@
 import { Link, useFetcher, useRouteLoaderData } from "react-router-dom";
+import { currentUser } from "../../auth";
 
 export function AuthStatus() {
   // Get our logged in users email, if they exist, from the root route loader data
@@ -15,8 +16,7 @@ export function AuthStatus() {
     );
   }
 
-  const preParsed = localStorage.getItem(userEmail);
-  const userData = JSON.parse(preParsed);
+  const userData = currentUser.get(userEmail);
 
   // get profile link values based off new or returning user
   const linkCta = userData?.fullName ? "View Profile" : "Create Profile";

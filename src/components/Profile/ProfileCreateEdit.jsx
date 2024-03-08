@@ -4,6 +4,8 @@ import { Form, useActionData, useRouteLoaderData } from "react-router-dom";
 import Select from "react-select";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
 
+import { currentUser } from "../../auth";
+
 import { colorOptions } from "../../data";
 
 function findSelectOption(options, value) {
@@ -14,10 +16,9 @@ function findSelectOption(options, value) {
 
 export function ProfileCreateEditPage() {
   const actionData = useActionData();
-  const userEmail = useRouteLoaderData("root")?.user;
 
-  const preParsed = localStorage.getItem(userEmail);
-  const user = JSON.parse(preParsed);
+  const userEmail = useRouteLoaderData("root")?.user;
+  const user = currentUser.get(userEmail);
 
   const [fullName, setFullName] = useState(user?.fullName || "");
   const [email, setEmail] = useState(user?.email || "");

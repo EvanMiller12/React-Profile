@@ -3,10 +3,11 @@ import { Link, useRouteLoaderData } from "react-router-dom";
 import { ConfirmAlert } from "../ConfirmAlert";
 import { SessionTimeoutAlert } from "../SessionTimeoutAlert";
 
+import { currentUser } from "../../auth";
+
 export function ProfilePage() {
   const userEmail = useRouteLoaderData("root")?.user;
-  const preParsed = localStorage.getItem(userEmail);
-  const user = JSON.parse(preParsed);
+  const user = currentUser.get(userEmail);
 
   const [showAlert, setShowAlert] = useState(false);
 

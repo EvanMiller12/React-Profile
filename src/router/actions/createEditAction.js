@@ -1,16 +1,19 @@
 import { redirect } from "react-router-dom";
+
 import {
   isEmailValid,
   isPasswordValid,
   isFullNameValid,
   isPhoneValid
 } from "../../utilities/validators";
+
 import { toE164Int } from "../../utilities/formatters";
+
 import { currentUser } from "../../auth";
 
 async function createEditAction({ request }) {
-  const preParsedData = localStorage.getItem(currentUser.email);
-  const user = JSON.parse(preParsedData);
+  const userEmail = currentUser?.email;
+  const user = currentUser.get(userEmail);
 
   const formData = await request.formData();
   const email = formData.get("email") || user?.email || null;
