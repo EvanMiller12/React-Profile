@@ -1,6 +1,32 @@
-# Getting Started with Create React App
+# React Coding Challenge
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Create an SPA using React for updating a user’s profile. All data should be stored and loaded from local storage. There are no API endpoints to retrieve data.
+
+NOTE: Security is not a concern with this challenge. It is suggested to make the application functional before trying to make it pretty. A good looking UI that does not function properly, is not useful. However, achieving both is a bonus.
+
+## Profile Data:
+
+- Email (required) - please validate email syntax. There is no need to validate if it
+  actually exists.
+- Password (required) - between 10 - 32 letters, numbers, special characters (not a
+  letter or number). There must be at least 2 uppercase, 2 numbers and 1 special
+  character.
+- Full name (required) - min of 3 characters
+- Phone number (optional) - stored in E.164 International Format: ex.
+  +15615128712. Other input formats are allowed, but it must be stored in E.164. It
+  should be displayed as +1 (555) 888-2231.
+- Favorite color: one of blue, red, green, yellow, purple, black, orange (required)
+
+You need the ability to login and create, view, edit and delete a profile.
+
+## Screens:
+
+- Login - email and password. Please ensure to display an error if the wrong
+  credentials are entered. Also include a “create profile” button/link since the first time running it, there won’t be any profiles. A login should timeout after 60 seconds, taking them back to this screen with a message stating “Session timed out”.
+- Create Profile - a form to collect all profile data points and store them in local storage. Note that emails must be unique across all profiles, a message that the email is already in use should be displayed. Any number of profiles can be created. This page has no login session, thus it should not be timed out.
+- View Profile – after a successful login, display a profile overview page which displays all the data within a user’s profile. This page should have an edit and delete button. The title of the page should be `${fullName} Profile` in the user’s favorite color.
+- Edit Profile - allow the user to edit any data point within their profile. They should be allowed to change multiple fields at once and then click a save button. Data should be saved to local storage. There should also be a cancel button, which discards all changes and navigates back to the view profile screen. The title of the page should be `Edit ${fullName} Profile` in the user’s favorite color.
+- Delete Profile - prompts user for confirmation (this can be a popup vs its own screen). If they confirm, the profile should be deleted from local storage. After deleting, you should navigate back to the login screen.
 
 ## Available Scripts
 
